@@ -17,6 +17,7 @@ public class GameEngine implements Runnable{
 	private static final int FPS = 60;
 	private static final double drawInterval = 1000000000 / FPS;
 	
+	public static boolean debug = false;
 	
 	
 	private KeyHandler keyH;
@@ -39,21 +40,19 @@ public class GameEngine implements Runnable{
 	}
 	
 	public void update() {
-		this.myPlayer.update();
-		switch(keyH.getPressedKeyName()) {
-		case "w":
+		if (KeyHandler.wPressed) {
 			this.myPlayer.moveUp();
-			break;
-		case "s":
-			this.myPlayer.moveDown();
-			break;
-		case "a":
-			this.myPlayer.moveLeft();
-			break;
-		case "d":
-			this.myPlayer.moveRight();
-			break;
 		}
+		if (KeyHandler.sPressed) {
+			this.myPlayer.moveDown();
+		}
+		if (KeyHandler.aPressed) {
+			this.myPlayer.moveLeft();
+		}
+		if (KeyHandler.dPressed) {
+			this.myPlayer.moveRight();
+		}
+		this.myPlayer.update();
 	}
 	@Override
 	public void run() {

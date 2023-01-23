@@ -4,8 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class Entity {
-	protected int worldX;
-	protected int worldY;
+	public int worldX;
+	public int worldY;
 	
 	// Image or Rectangle
 	protected Rectangle entityTexture;

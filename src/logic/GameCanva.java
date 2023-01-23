@@ -23,6 +23,10 @@ public class GameCanva extends JPanel{
 	
 	// Dimension of this app (Of this JPanel)
 	public static final Dimension APP_DIMENSION = new Dimension(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 100);
+	
+	// Tile Width and Height
+	public static final int TILE_WIDTH = APP_DIMENSION.width / 16;
+	public static final int TILE_HEIGHT = APP_DIMENSION.height / 9;
 
 	// Graphics engine
 	private GraphicsEngine graphicsEngine;
