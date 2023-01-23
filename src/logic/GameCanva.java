@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -39,6 +40,7 @@ public class GameCanva extends JPanel{
 	
 	public GameCanva() {
 		this.setPreferredSize(APP_DIMENSION);
+		this.setBackground(Color.BLACK);
 		
 		this.setDoubleBuffered(true);
 		this.setFocusable(true);

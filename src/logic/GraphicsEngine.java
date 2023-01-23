@@ -3,6 +3,10 @@ package logic;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import entities.Entity;
 import entities.MyPlayer;
@@ -20,13 +24,23 @@ public class GraphicsEngine implements Runnable {
 	private KeyHandler keyH;
 	private MouseHandler mouseH;
 	
+	private BufferedImage grass;
+	private BufferedImage groundTileImage;
+	
 	public GraphicsEngine(GameCanva gameCanva, KeyHandler keyH, MouseHandler mouseH) {
 		this.gameCanva = gameCanva;
 		this.keyH = keyH;
 		this.mouseH = mouseH;
 		
+		try {
+			grass = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
 		this.graphicsThread = new Thread(this);
 		this.graphicsThread.start();
+		
 	}
 	@Override
 	public void run() {
@@ -67,7 +81,7 @@ public class GraphicsEngine implements Runnable {
 	}
 	
 	private void drawDebug(Graphics2D g2) {
-		g2.setColor(Color.BLACK);
+		g2.setColor(Color.WHITE);
 		for(Entity e: GameEngine.entities) {
 			if (e instanceof MyPlayer) {
 				g2.drawString("worldX: " + e.worldX, 10, 10);
@@ -88,13 +102,10 @@ public class GraphicsEngine implements Runnable {
 			for (int y = 0; y < 64; y++) {
 				switch(Map.type2DTable[x][y]) {
 				case 0:
-					g2.setColor(Color.GREEN);
-					break;
+					this.groundTileImage = grass; 
 				}
 				Rectangle r = new Rectangle(x * GameCanva.TILE_WIDTH + Map.mapScreenX, y * GameCanva.TILE_HEIGHT + Map.mapScreenY, GameCanva.TILE_WIDTH, GameCanva.TILE_HEIGHT);
-				g2.fill(r);
-				g2.setColor(Color.BLACK);
-				g2.draw(r);
+				g2.drawImage(groundTileImage, r.x, r.y, r.width, r.height, null);
 			}
 		}
 		// Draw Entities
