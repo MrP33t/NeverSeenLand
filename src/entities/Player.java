@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Rectangle;
 
 import logic.GameCanva;
+import maps.Map;
 
 public class Player extends Entity {
 
@@ -15,9 +16,9 @@ public class Player extends Entity {
 	protected float forceLeft = 0f;
 	protected float forceRight = 0f;
 	
-	public Player(int worldX, int worldY) {
-		super(worldX, worldY);
-		this.entityTexture = new Rectangle(worldX, worldY, GameCanva.TILE_WIDTH, GameCanva.TILE_HEIGHT);
+	public Player(int tileX, int tileY) {
+		super(tileX, tileY);
+		this.entityTexture = new Rectangle(GameCanva.APP_DIMENSION.width / 2 - (GameCanva.TILE_WIDTH / 2), GameCanva.APP_DIMENSION.height / 2 - (GameCanva.TILE_HEIGHT / 2), GameCanva.TILE_WIDTH, GameCanva.TILE_HEIGHT);
 	}
 	
 	private void resetForces() {
@@ -46,22 +47,28 @@ public class Player extends Entity {
 	public void update() {
 		if (this.forceUp != 0) {
 			this.worldY -= this.forceUp;
+			Map.mapScreenY += this.forceUp;
 			this.forceUp -= 0.5f;
 		}
 		if (this.forceDown != 0) {
 			this.worldY += this.forceDown;
+			Map.mapScreenY -= this.forceDown;
 			this.forceDown -= 0.5f;
 		}
 		if (this.forceLeft != 0) {
 			this.worldX -= this.forceLeft;
+			Map.mapScreenX += this.forceLeft;
 			this.forceLeft -= 0.5f;
 		}
 		if (this.forceRight != 0) {
 			this.worldX += this.forceRight;
+			Map.mapScreenX -= this.forceRight;
 			this.forceRight -= 0.5f;
 		}
-		this.entityTexture.x = worldX;
-		this.entityTexture.y = worldY;
+		
+		this.tileX = (this.worldX + (GameCanva.TILE_WIDTH / 2)) / GameCanva.TILE_WIDTH;
+		this.tileY = (this.worldY + (GameCanva.TILE_HEIGHT / 2)) / GameCanva.TILE_HEIGHT;
+		
 	}
 
 }

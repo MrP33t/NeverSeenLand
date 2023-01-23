@@ -6,6 +6,7 @@ import entities.Entity;
 import entities.MyPlayer;
 import listeners.KeyHandler;
 import listeners.MouseHandler;
+import maps.Map;
 
 public class GameEngine implements Runnable{
 
@@ -32,8 +33,9 @@ public class GameEngine implements Runnable{
 		this.keyH = keyH;
 		this.mouseH = mouseH;
 		
-		this.myPlayer = new MyPlayer(300, 300);
+		this.myPlayer = new MyPlayer(3, 3);
 		entities.add(myPlayer);
+		Map.createMap(myPlayer);
 		
 		this.gameThread = new Thread(this);
 		this.gameThread.start();

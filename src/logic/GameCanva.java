@@ -48,8 +48,8 @@ public class GameCanva extends JPanel{
 		
 		this.setVisible(true);
 		
-		this.graphicsEngine = new GraphicsEngine(this, keyH, mouseH);
 		this.gameEngine = new GameEngine(keyH, mouseH);
+		this.graphicsEngine = new GraphicsEngine(this, keyH, mouseH);
 	}
 	
 	public void paintComponent(Graphics g) {

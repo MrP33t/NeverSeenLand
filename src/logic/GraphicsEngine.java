@@ -2,11 +2,13 @@ package logic;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import entities.Entity;
 import entities.MyPlayer;
 import listeners.KeyHandler;
 import listeners.MouseHandler;
+import maps.Map;
 
 public class GraphicsEngine implements Runnable {
 
@@ -69,7 +71,9 @@ public class GraphicsEngine implements Runnable {
 		for(Entity e: GameEngine.entities) {
 			if (e instanceof MyPlayer) {
 				g2.drawString("worldX: " + e.worldX, 10, 10);
-				g2.drawString("worldY: " + e.worldY, 10, 60);
+				g2.drawString("worldY: " + e.worldY, 10, 40);
+				g2.drawString("tileX: " + e.tileX, 10, 70);
+				g2.drawString("tileY: " + e.tileY, 10, 100);
 			}
 		}
 	}
@@ -79,6 +83,21 @@ public class GraphicsEngine implements Runnable {
 	}
 	
 	private void drawGame(Graphics2D g2) {
+		// Draw Map
+		for (int x = 0; x < 64; x++) {
+			for (int y = 0; y < 64; y++) {
+				switch(Map.type2DTable[x][y]) {
+				case 0:
+					g2.setColor(Color.GREEN);
+					break;
+				}
+				Rectangle r = new Rectangle(x * GameCanva.TILE_WIDTH + Map.mapScreenX, y * GameCanva.TILE_HEIGHT + Map.mapScreenY, GameCanva.TILE_WIDTH, GameCanva.TILE_HEIGHT);
+				g2.fill(r);
+				g2.setColor(Color.BLACK);
+				g2.draw(r);
+			}
+		}
+		// Draw Entities
 		for(Entity e: GameEngine.entities) {
 			e.draw(g2);
 		}
