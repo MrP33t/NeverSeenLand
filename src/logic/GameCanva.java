@@ -7,6 +7,9 @@ import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 
+import listeners.KeyHandler;
+import listeners.MouseHandler;
+
 public class GameCanva extends JPanel{
 	
 	/**
@@ -23,6 +26,12 @@ public class GameCanva extends JPanel{
 
 	// Graphics engine
 	private GraphicsEngine graphicsEngine;
+	// Game engine
+	private GameEngine gameEngine;
+	
+	// Input Handlers
+	private KeyHandler keyH = new KeyHandler();
+	private MouseHandler mouseH = new MouseHandler();
 	
 	public GameCanva() {
 		this.setPreferredSize(APP_DIMENSION);
@@ -30,9 +39,13 @@ public class GameCanva extends JPanel{
 		this.setDoubleBuffered(true);
 		this.setFocusable(true);
 		
+		this.addKeyListener(keyH);
+		this.addMouseListener(mouseH);
+		
 		this.setVisible(true);
 		
-		this.graphicsEngine = new GraphicsEngine(this);
+		this.graphicsEngine = new GraphicsEngine(this, keyH, mouseH);
+		this.gameEngine = new GameEngine(keyH, mouseH);
 	}
 	
 	public void paintComponent(Graphics g) {
