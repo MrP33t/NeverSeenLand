@@ -25,6 +25,8 @@ public class GraphicsEngine implements Runnable {
 	private MouseHandler mouseH;
 	
 	private BufferedImage grass;
+	private BufferedImage treeSprite;
+	private BufferedImage woodItem;
 	private BufferedImage groundTileImage;
 	
 	public GraphicsEngine(GameCanva gameCanva, KeyHandler keyH, MouseHandler mouseH) {
@@ -34,6 +36,8 @@ public class GraphicsEngine implements Runnable {
 		
 		try {
 			grass = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+			treeSprite = ImageIO.read(getClass().getResourceAsStream("/sprites/tree.png"));
+			woodItem = ImageIO.read(getClass().getResourceAsStream("/items/wood.png"));
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -100,12 +104,24 @@ public class GraphicsEngine implements Runnable {
 		// Draw Map
 		for (int x = 0; x < 64; x++) {
 			for (int y = 0; y < 64; y++) {
+				BufferedImage entityImage = null;
+				Rectangle r = new Rectangle(x * GameCanva.TILE_WIDTH + Map.mapScreenX, y * GameCanva.TILE_HEIGHT + Map.mapScreenY, GameCanva.TILE_WIDTH, GameCanva.TILE_HEIGHT);
 				switch(Map.type2DTable[x][y]) {
 				case 0:
-					this.groundTileImage = grass; 
+					this.groundTileImage = grass;
+					g2.drawImage(groundTileImage, r.x, r.y, r.width, r.height, null);
+					break;
+				case 1:
+					this.groundTileImage = grass;
+					entityImage = this.treeSprite;
+					break;
 				}
-				Rectangle r = new Rectangle(x * GameCanva.TILE_WIDTH + Map.mapScreenX, y * GameCanva.TILE_HEIGHT + Map.mapScreenY, GameCanva.TILE_WIDTH, GameCanva.TILE_HEIGHT);
 				g2.drawImage(groundTileImage, r.x, r.y, r.width, r.height, null);
+				if (entityImage != null) {
+					r.y -= 64;
+					r.height += 64;
+					g2.drawImage(entityImage, r.x, r.y, r.width, r.height, null);
+				}
 			}
 		}
 		// Draw Entities

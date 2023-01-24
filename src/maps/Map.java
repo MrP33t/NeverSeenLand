@@ -16,5 +16,7 @@ public class Map {
 				y = 0;
 			}
 		}
+		
+		type2DTable[5][5] = 1;
 	}
 }

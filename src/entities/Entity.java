@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import logic.GameCanva;
 
@@ -13,8 +14,10 @@ public class Entity {
 	public int screenX;
 	public int screenY;
 	
+	protected BufferedImage entityImage;
+	
 	// Image or Rectangle
-	protected Rectangle entityTexture;
+	protected Rectangle entityRectangle;
 	
 	public Entity(int tileX, int tileY) {
 		this.tileX = tileX;
@@ -24,8 +27,10 @@ public class Entity {
 	}
 	
 	public void draw(Graphics2D g2) {
-		if(entityTexture instanceof Rectangle) {
-			g2.fill(entityTexture);
+		if(this.entityRectangle instanceof Rectangle) {
+			if (this.entityImage != null) {
+				g2.drawImage(this.entityImage, this.entityRectangle.x, this.entityRectangle.y, this.entityRectangle.width, this.entityRectangle.height, null);
+			}
 		}
 	}
 }

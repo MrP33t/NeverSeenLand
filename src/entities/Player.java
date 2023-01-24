@@ -2,6 +2,9 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import logic.GameCanva;
 import maps.Map;
@@ -18,7 +21,12 @@ public class Player extends Entity {
 	
 	public Player(int tileX, int tileY) {
 		super(tileX, tileY);
-		this.entityTexture = new Rectangle(GameCanva.APP_DIMENSION.width / 2 - (GameCanva.TILE_WIDTH / 2), GameCanva.APP_DIMENSION.height / 2 - (GameCanva.TILE_HEIGHT / 2), GameCanva.TILE_WIDTH, GameCanva.TILE_HEIGHT);
+		this.entityRectangle = new Rectangle(GameCanva.APP_DIMENSION.width / 2 - (GameCanva.TILE_WIDTH / 2), GameCanva.APP_DIMENSION.height / 2 - (GameCanva.TILE_HEIGHT / 2), GameCanva.TILE_WIDTH, GameCanva.TILE_HEIGHT);
+		try {
+			this.entityImage = ImageIO.read(getClass().getResourceAsStream("/sprites/player.png"));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void resetForces() {
