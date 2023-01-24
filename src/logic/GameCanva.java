@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import listeners.KeyHandler;
 import listeners.MouseHandler;
+import listeners.MouseMotionHandler;
 
 public class GameCanva extends JPanel{
 	
@@ -37,6 +38,7 @@ public class GameCanva extends JPanel{
 	// Input Handlers
 	private KeyHandler keyH = new KeyHandler();
 	private MouseHandler mouseH = new MouseHandler();
+	private MouseMotionHandler mouseMH = new MouseMotionHandler();
 	
 	public GameCanva() {
 		this.setPreferredSize(APP_DIMENSION);
@@ -47,6 +49,7 @@ public class GameCanva extends JPanel{
 		
 		this.addKeyListener(keyH);
 		this.addMouseListener(mouseH);
+		this.addMouseMotionListener(mouseMH);
 		
 		this.setVisible(true);
 		

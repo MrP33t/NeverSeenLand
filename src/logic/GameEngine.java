@@ -1,5 +1,7 @@
 package logic;
 
+import java.awt.MouseInfo;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import entities.Entity;
@@ -19,6 +21,8 @@ public class GameEngine implements Runnable{
 	private static final double drawInterval = 1000000000 / FPS;
 	
 	public static boolean debug = false;
+	
+	public static int mouseX, mouseY;
 	
 	
 	private KeyHandler keyH;
@@ -42,6 +46,7 @@ public class GameEngine implements Runnable{
 	}
 	
 	public void update() {
+		
 		if (KeyHandler.wPressed) {
 			this.myPlayer.moveUp();
 		}

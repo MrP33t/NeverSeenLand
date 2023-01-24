@@ -92,6 +92,9 @@ public class GraphicsEngine implements Runnable {
 				g2.drawString("worldY: " + e.worldY, 10, 40);
 				g2.drawString("tileX: " + e.tileX, 10, 70);
 				g2.drawString("tileY: " + e.tileY, 10, 100);
+				g2.drawString("mouseX: " + GameEngine.mouseX, 10, 130);
+				g2.drawString("mouseY: " + GameEngine.mouseY, 10, 160);
+				g2.drawString("rotation: " + MyPlayer.playerRotation + "deg", 10, 190);
 			}
 		}
 	}

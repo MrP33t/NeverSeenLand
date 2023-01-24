@@ -14,6 +14,8 @@ public class Entity {
 	public int screenX;
 	public int screenY;
 	
+	protected int type = 0;
+	
 	protected BufferedImage entityImage;
 	
 	// Image or Rectangle
@@ -29,7 +31,13 @@ public class Entity {
 	public void draw(Graphics2D g2) {
 		if(this.entityRectangle instanceof Rectangle) {
 			if (this.entityImage != null) {
+				double rotation = 0;
+				if (this.type == 1) {
+					rotation = MyPlayer.getRotation();
+					g2.rotate(Math.toRadians(rotation), GameCanva.APP_DIMENSION.width / 2, GameCanva.APP_DIMENSION.height / 2);
+				}
 				g2.drawImage(this.entityImage, this.entityRectangle.x, this.entityRectangle.y, this.entityRectangle.width, this.entityRectangle.height, null);
+				g2.rotate(Math.toRadians(-rotation), GameCanva.APP_DIMENSION.width / 2, GameCanva.APP_DIMENSION.height / 2);
 			}
 		}
 	}
